@@ -1,11 +1,5 @@
 package Project1;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
-
-import static Project1.read.airportfile;
-
 /**
  * A class to represent an Airport object
  */
@@ -28,20 +22,20 @@ public class Airports {
 
     /** A constructor for the Airports class
      *
-     * @param airportID
-     * @param name
-     * @param city
-     * @param country
-     * @param iatacode
-     * @param icaoCode
-     * @param latitude
-     * @param longitude
-     * @param altitude
-     * @param timezone
-     * @param dst
-     * @param tzdatabasetimezone
-     * @param type
-     * @param source
+     * @param airportID String
+     * @param name String
+     * @param city String
+     * @param country String
+     * @param iatacode String
+     * @param icaoCode String
+     * @param latitude double
+     * @param longitude double
+     * @param altitude String
+     * @param timezone String
+     * @param dst String
+     * @param tzdatabasetimezone String
+     * @param type String
+     * @param source String
      */
     public Airports(String airportID, String name, String city, String country,
                     String iatacode, String icaoCode, double latitude, double longitude,

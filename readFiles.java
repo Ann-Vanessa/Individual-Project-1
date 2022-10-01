@@ -10,76 +10,71 @@ import java.util.Scanner;
 
 public class readFiles {
     static String[] airportArray = new String[14];
+    static HashMap<String, String> airportMap = new HashMap<String, String>();
+    static HashMap<String, ArrayList<String>> start_destMap = new HashMap<String, ArrayList<String>>();
+    static ArrayList<Routes> pathList = new ArrayList<>();
 
-    public static HashMap<String, Airports> readAirportFile() throws FileNotFoundException{
+    public static HashMap<String, String> readAirportFile() throws FileNotFoundException {
 
         Scanner airportData;
         airportData = new Scanner(new File("C:\\Users\\HP\\IdeaProjects\\Individual Project\\airports.csv"));
 
-        HashMap<String, Airports> airportMap = new HashMap<String, Airports>();
-        HashMap<String, String[]> airportMap2 = new HashMap<String, String[]>();
-        //String[] airportValue = new String[3];
-
+        HashMap<String, String> airportMap = new HashMap<String, String>();
+        //HashMap<String, Airports> airports = new HashMap<String, Airports>();
 
         while (airportData.hasNext()) {
             String[] airportArray = airportData.nextLine().split(",");
-            String[] airportArray2 = new String[3];
-            airportArray2[0] = airportArray[1];
-            airportArray2[1] = airportArray[6];
-            airportArray2[2] = airportArray[7];
-
-            try {
+            try{
                 if (airportArray.length == 14) {
-                    Airports airportObj = new Airports(airportArray[0], airportArray[1], airportArray[2],
-                            airportArray[3], airportArray[4], airportArray[5],
-                            (Double.parseDouble(airportArray[6])), (Double.parseDouble(airportArray[7])), airportArray[8],
-                            airportArray[9], airportArray[10], airportArray[11], airportArray[12], airportArray[13]);
-                    airportMap.put(airportArray[0], airportObj);
-
+                    String location = airportArray[2]+","+ airportArray[3];
+                    airportMap.put(location, airportArray[4]);
+                } else{
+                    String adj_location = airportArray[2]+","+ airportArray[3]+","+ airportArray[4];
+                    airportMap.put(adj_location, airportArray[5]);
                 }
-                else{
-                    Airports airportObj = new Airports(airportArray[0], (airportArray[1] + airportArray[2]),
-                            airportArray[3], airportArray[4], airportArray[5], airportArray[6],
-                            (Double.parseDouble(airportArray[7])), (Double.parseDouble(airportArray[8])), airportArray[9],
-                            airportArray[10], airportArray[11], airportArray[12], airportArray[13], airportArray[14]);
-                    airportMap.put(airportArray[0], airportObj);
-                }
-            }catch(NumberFormatException ne){
-                System.out.println("Encountered Problem"+ ne.getMessage());
+            } catch (NumberFormatException ne) {
+                System.out.println("Encountered Error: "+ ne.getMessage());
             }
-
-            airportMap2.put(airportArray[2]+", "+airportArray[3], airportArray2);
         }
         airportData.close();
+        System.out.println(airportMap);
         return airportMap;
 
     }
-    public static HashMap<String, Airlines> readAirlineFile() throws FileNotFoundException{
+    public static HashMap<String, ArrayList<String>> readAirlineFile() throws FileNotFoundException{
 
         Scanner airlineData;
         airlineData = new Scanner(new File("C:\\Users\\HP\\IdeaProjects\\Individual Project\\airlines.csv"));
 
-        HashMap<String, Airlines> airlineMap = new HashMap<String, Airlines>();
+        HashMap<String, ArrayList<String>> airlineMap = new HashMap<>();
 
         while (airlineData.hasNext()) {
             String[] airlineArray = airlineData.nextLine().split(",");
 
-            Airlines airlineObj = new Airlines(Integer.parseInt(airlineArray[0]), airlineArray[1], airlineArray[2],
-                    airlineArray[3], airlineArray[4], airlineArray[5],
-                    (airlineArray[6]), (airlineArray[7]));
+            String ID = airlineArray[0];
+            ArrayList<String> airlineDetails = new ArrayList<String>();
+            airlineDetails.add(airlineArray[1]);
+            airlineDetails.add(airlineArray[2]);
+            airlineDetails.add(airlineArray[3]);
+            airlineDetails.add(airlineArray[4]);
+            airlineDetails.add(airlineArray[5]);
+            airlineDetails.add(airlineArray[6]);
+            airlineDetails.add(airlineArray[7]);
 
-            airlineMap.put(airlineArray[0], airlineObj);
+            airlineMap.put(ID, airlineDetails);
 
         }
         airlineData.close();
+        System.out.println(airlineMap);
+
         return airlineMap;
     }
 
     public static HashMap<String, ArrayList<String>> readRouteFile() throws FileNotFoundException {
 
-        HashMap<String, String[]> routeMap = new HashMap<>();
-
+        HashMap<String, ArrayList<Routes>> routes = new HashMap<>();
         ArrayList<String> destination = new ArrayList<String>();
+        ArrayList<Routes> routeList;
         HashMap<String, ArrayList<String>> start_destMap = new HashMap<String, ArrayList<String>>();
 
         Scanner routeData;
@@ -87,6 +82,19 @@ public class readFiles {
 
         while (routeData.hasNext()) {
             String[] routeArray = routeData.nextLine().split(",");
+
+            Routes routeObj = new Routes(routeArray[0], routeArray[1], routeArray[4], Integer.parseInt(routeArray[7]));
+
+            // Ensuring the key is not present in the hashmap
+            routeList = routes.get(routeArray);
+            if (routeList == null) {
+                ArrayList<Routes> pathList = new ArrayList<>();
+                pathList.add(routeObj);
+                routes.put(routeArray[2], pathList);
+            } else {
+                routeList.add(routeObj);
+                routes.put(routeArray[2], routeList);
+            }
 
             start_destMap.put(airportArray[0], destination);
             if (start_destMap.containsKey(routeArray[3])){

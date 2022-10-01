@@ -5,7 +5,7 @@ package Project1;
  */
 
 public class Airlines {
-    private int airlineID;
+    private String airlineID;
     private String name;
     private String alias;
     private String iataCode;
@@ -16,16 +16,16 @@ public class Airlines {
 
     /**
      *
-     * @param airlineID
-     * @param name
-     * @param alias
-     * @param iataCode
-     * @param icaoCode
-     * @param callsign
-     * @param country
-     * @param active
+     * @param airlineID String
+     * @param name String
+     * @param alias String
+     * @param iataCode String
+     * @param icaoCode String
+     * @param callsign String
+     * @param country String
+     * @param active String
      */
-    public Airlines(int airlineID, String name, String alias, String iataCode, String icaoCode, String callsign, String country, String active) {
+    public Airlines(String airlineID, String name, String alias, String iataCode, String icaoCode, String callsign, String country, String active) {
         this.airlineID = airlineID;
         this.name = name;
         this.alias = alias;
@@ -40,7 +40,7 @@ public class Airlines {
      * accessor method for Airline ID
      * @return airportID
      */
-    public int getAirlineID() {
+    public String getAirlineID() {
         return airlineID;
     }
 

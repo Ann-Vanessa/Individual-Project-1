@@ -6,7 +6,7 @@ package Project1;
 
 public class Routes {
     private String airlineCode;
-    private int airlineID;
+    private String airlineID;
     private String source_airportCode;
     private String source_airportID;
     private String dest_airportCode;
@@ -17,17 +17,17 @@ public class Routes {
 
     /**
      *
-     * @param airlineCode
-     * @param airlineID
-     * @param source_airportCode
-     * @param source_airportID
-     * @param dest_airportCode
-     * @param dest_airportID
-     * @param codeShare
-     * @param stops
-     * @param equipment
+     * @param airlineCode String
+     * @param airlineID String
+     * @param source_airportCode String
+     * @param source_airportID String
+     * @param dest_airportCode String
+     * @param dest_airportID String
+     * @param codeShare String
+     * @param stops int
+     * @param equipment String
      */
-    public Routes(String airlineCode, int airlineID, String source_airportCode, String source_airportID, String dest_airportCode, String dest_airportID, String codeShare, int stops, String equipment) {
+    public Routes(String airlineCode, String airlineID, String source_airportCode, String source_airportID, String dest_airportCode, String dest_airportID, String codeShare, int stops, String equipment) {
         this.airlineCode = airlineCode;
         this.airlineID = airlineID;
         this.source_airportCode = source_airportCode;
@@ -37,6 +37,9 @@ public class Routes {
         this.codeShare = codeShare;
         this.stops = stops;
         this.equipment = equipment;
+    }
+
+    public Routes(String airlineCode, String airlineID, String dest_airportCode, int parseInt) {
     }
 
     /**
@@ -51,7 +54,7 @@ public class Routes {
      * accessor method for Airline ID
      * @return airlineID
      */
-    public int getAirlineID() {
+    public String getAirlineID() {
         return airlineID;
     }
 
